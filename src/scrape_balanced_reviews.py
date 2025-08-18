@@ -82,16 +82,16 @@ def scrape_balanced_reviews(package_name, target_counts):
     return all_reviews
 
 def main():
-    # Jiji app package name (you need to find the correct one)
-    package_name = 'et.jiji.app'  # Verify this is correct
+    # Jiji app package name 
+    package_name = 'com.combanketh.mobilebanking'  
     
-    # Target counts based on your analysis
+    # Target counts based on  analysis
     target_counts = {
-        1: 50,  # Need 50 more 1-star reviews
-        2: 10,  # Need 10 more 2-star reviews  
-        3: 60,  # Need 60 more 3-star reviews
-        4: 0,   # Don't need more 4-star reviews
-        5: 0    # Don't need more 5-star reviews
+        1: 200,  # 200 1-star reviews
+        2: 200,  # 150 2-star reviews  
+        3: 400,  # 200 3-star reviews
+        4: 200,  # 100 4-star reviews
+        5: 200   # 100 5-star reviews
     }
     
     print("Starting balanced review collection...")
@@ -104,20 +104,20 @@ def main():
     df_new.to_csv('new_balanced_reviews.csv', index=False)
     print(f"Collected {len(new_reviews)} new reviews")
     
-    # Combine with existing data
-    df_existing = pd.read_csv('src/scrape/jiji_play_reviews_all.csv')
-    df_combined = pd.concat([df_existing, df_new], ignore_index=True)
+    # # Combine with existing data
+    # df_existing = pd.read_csv('src/scrape/jiji_play_reviews_all.csv')
+    # df_combined = pd.concat([df_existing, df_new], ignore_index=True)
     
-    # Save combined dataset
-    df_combined.to_csv('balanced_playstore_reviews.csv', index=False)
-    print("Combined dataset saved as 'balanced_playstore_reviews.csv'")
+    # # Save combined dataset
+    # df_combined.to_csv('balanced_playstore_reviews.csv', index=False)
+    # print("Combined dataset saved as 'balanced_playstore_reviews.csv'")
     
     # Show new distribution
-    print("\nNew distribution:")
-    score_counts = df_combined['score'].value_counts().sort_index()
-    for score, count in score_counts.items():
-        percentage = (count / len(df_combined)) * 100
-        print(f"Score {score}: {count} reviews ({percentage:.1f}%)")
+    # print("\nNew distribution:")
+    # score_counts = df_combined['score'].value_counts().sort_index()
+    # for score, count in score_counts.items():
+    #     percentage = (count / len(df_combined)) * 100
+    #     print(f"Score {score}: {count} reviews ({percentage:.1f}%)")
 
 if __name__ == "__main__":
     main()
